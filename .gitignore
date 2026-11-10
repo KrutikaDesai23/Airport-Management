@@ -1,0 +1,14 @@
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.cache
+*.pdb
+*.log
+Web.Local.config
+appsettings.local.json
+.env
+.env.*
+.DS_Store
+Thumbs.db
