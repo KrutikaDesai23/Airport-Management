@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="false" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -13,17 +12,37 @@
     <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>bin\</OutputPath><DefineConstants>DEBUG;TRACE</DefineConstants><WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType><Optimize>true</Optimize><OutputPath>bin\</OutputPath><DefineConstants>TRACE</DefineConstants><WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" /><Reference Include="System.Core" /><Reference Include="System.Data" /><Reference Include="System.Web" /><Reference Include="System.Configuration" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" /><Content Include="Web.config" /><Content Include="Content\Site.css" />
-    <Compile Include="Default.aspx.cs"><DependentUpon>Default.aspx</DependentUpon></Compile>\n    <Compile Include="Default.aspx.designer.cs"><DependentUpon>Default.aspx</DependentUpon></Compile>
+    <Content Include="Default.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Content\Site.css" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
