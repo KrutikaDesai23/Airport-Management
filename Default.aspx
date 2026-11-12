@@ -7,7 +7,8 @@
     <link href="Content/Site.css" rel="stylesheet" />
 </head>
 <body>
-<form id="form1" runat="server">\n<input type="hidden" name="activeTable" value="<%= ViewState["CurrentTable"] %>" />
+<form id="form1" runat="server">
+<input type="hidden" name="activeTable" value="<%= ViewState["CurrentTable"] %>" />
 <div class="shell">
     <aside class="sidebar">
         <div class="brand"><span class="brand-mark">✈</span><div>SKYPORT<small>AIRPORT OPERATIONS</small></div></div>
