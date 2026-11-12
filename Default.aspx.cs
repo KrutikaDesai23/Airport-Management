@@ -17,7 +17,14 @@ namespace AirportManagement
         };
         private string CurrentTable { get { return ViewState["CurrentTable"] as string ?? "Airport"; } }
 
-        protected override void OnInit(EventArgs e)\n        {\n            base.OnInit(e);\n            string postedTable = Request.Form["activeTable"];\n            if (!String.IsNullOrEmpty(postedTable) && PrimaryKeys.ContainsKey(postedTable)) BuildInsertFields(postedTable);\n        }\n\n        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            string postedTable = Request.Form["activeTable"];
+            if (!String.IsNullOrEmpty(postedTable) && PrimaryKeys.ContainsKey(postedTable)) BuildInsertFields(postedTable);
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) LoadDashboard();
         }
