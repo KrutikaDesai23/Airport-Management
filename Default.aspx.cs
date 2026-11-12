@@ -27,6 +27,11 @@ namespace AirportManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) LoadDashboard();
+            else
+            {
+                string postedTable = Request.Form["activeTable"];
+                if (!String.IsNullOrEmpty(postedTable) && PrimaryKeys.ContainsKey(postedTable)) LoadTable(postedTable);
+            }
         }
 
         private SqlConnection OpenConnection() { return new SqlConnection(ConnectionString); }
@@ -167,7 +172,7 @@ namespace AirportManagement
                         insert.ExecuteNonQuery();
                     }
                 }
-                Message.Text = "Record added successfully."; Message.CssClass = "message success"; LoadTable(table);
+                LoadTable(table); Message.Text = "Record added successfully."; Message.CssClass = "message success";
             }
             catch (Exception ex) { Message.Text = "Could not add record: " + ex.Message; Message.CssClass = "message error"; }
         }
