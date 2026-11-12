@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" /><Content Include="Web.config" /><Content Include="Content\Site.css" />
-    <Compile Include="Default.aspx.cs"><DependentUpon>Default.aspx</DependentUpon></Compile>
+    <Compile Include="Default.aspx.cs"><DependentUpon>Default.aspx</DependentUpon></Compile>\n    <Compile Include="Default.aspx.designer.cs"><DependentUpon>Default.aspx</DependentUpon></Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
