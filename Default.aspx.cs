@@ -45,8 +45,20 @@ namespace AirportManagement
                 ErrorPanel.Visible = false;
                 PageHeading.Text = postedTable + " management";
                 TableHeading.Text = postedTable + " records";
+                SetActiveNavigation(postedTable);
                 BindTable(postedTable);
             }
+        }
+
+
+        private void SetActiveNavigation(string table)
+        {
+            DashboardLink.CssClass = String.IsNullOrEmpty(table) ? "nav-link active" : "nav-link";
+            AirportLink.CssClass = table == "Airport" ? "nav-link active" : "nav-link";
+            AircraftLink.CssClass = table == "Aircraft" ? "nav-link active" : "nav-link";
+            TerminalLink.CssClass = table == "Terminal" ? "nav-link active" : "nav-link";
+            GateLink.CssClass = table == "Gate" ? "nav-link active" : "nav-link";
+            FlightLink.CssClass = table == "Flight" ? "nav-link active" : "nav-link";
         }
 
         private SqlConnection OpenConnection() { return new SqlConnection(ConnectionString); }
@@ -57,6 +69,7 @@ namespace AirportManagement
 
         private void LoadDashboard()
         {
+            SetActiveNavigation(null);
             ViewState["CurrentTable"] = null;
             DashboardPanel.Visible = true; TablePanel.Visible = false; ErrorPanel.Visible = false;
             PageHeading.Text = "Operations overview";
@@ -95,6 +108,7 @@ namespace AirportManagement
         private void LoadTable(string table)
         {
             if (!PrimaryKeys.ContainsKey(table)) return;
+            SetActiveNavigation(table);
             ViewState["CurrentTable"] = table;
             DashboardPanel.Visible = false;
             TablePanel.Visible = true;
