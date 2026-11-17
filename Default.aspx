@@ -3,91 +3,110 @@
 <html>
 <head runat="server">
     <meta charset="utf-8" />
-    <title>SkyPort | Airport Management</title>
+    <title>SkyPort | Airport Operations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="Content/Site.css?v=3" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="Content/Site.css?v=8" rel="stylesheet" />
 </head>
 <body>
 <form id="form1" runat="server">
 <input type="hidden" name="activeTable" value="<%= ViewState["CurrentTable"] %>" />
-<div class="shell">
+<div class="app-shell">
     <aside class="sidebar">
-        <a class="brand" href="Default.aspx"><span class="brand-mark">&#9992;</span><span>SKYPORT<small>AVIATION MANAGEMENT</small></span></a>
-        <div class="nav-caption">YOUR WORKSPACE</div>
-        <asp:LinkButton ID="DashboardLink" runat="server" CssClass="nav-link active" OnClick="DashboardLink_Click"><span class="nav-icon">&#9638;</span> Overview <span class="nav-arrow">&#8594;</span></asp:LinkButton>
-        <div class="nav-caption nav-caption-spaced">MANAGE RESOURCES</div>
-        <asp:LinkButton ID="AirportLink" runat="server" CssClass="nav-link" CommandArgument="Airport" OnCommand="TableLink_Command"><span class="nav-icon">&#8962;</span> Airports</asp:LinkButton>
-        <asp:LinkButton ID="AircraftLink" runat="server" CssClass="nav-link" CommandArgument="Aircraft" OnCommand="TableLink_Command"><span class="nav-icon">&#9992;</span> Aircraft</asp:LinkButton>
-        <asp:LinkButton ID="TerminalLink" runat="server" CssClass="nav-link" CommandArgument="Terminal" OnCommand="TableLink_Command"><span class="nav-icon">&#9636;</span> Terminals</asp:LinkButton>
-        <asp:LinkButton ID="GateLink" runat="server" CssClass="nav-link" CommandArgument="Gate" OnCommand="TableLink_Command"><span class="nav-icon">&#8677;</span> Boarding gates</asp:LinkButton>
-        <asp:LinkButton ID="FlightLink" runat="server" CssClass="nav-link" CommandArgument="Flight" OnCommand="TableLink_Command"><span class="nav-icon">&#8644;</span> Flights</asp:LinkButton>
-        <div class="sidebar-card">
-            <div class="sidebar-card-icon">&#10003;</div>
-            <strong>System connected</strong>
-            <span>Your database is online and ready.</span>
-            <small><i></i> SQL SERVER · ADO.NET</small>
+        <a class="brand" href="Default.aspx">
+            <span class="brand-symbol">&#9992;</span>
+            <span class="brand-name">SKYPORT<small> AIRPORT OPERATIONS</small></span>
+        </a>
+        <div class="terminal-label">NAVIGATION <span>01—06</span></div>
+        <asp:LinkButton ID="DashboardLink" runat="server" CssClass="nav-link active" OnClick="DashboardLink_Click"><span class="nav-code">00</span><span>Operations board</span><span class="nav-arrow">&#8599;</span></asp:LinkButton>
+        <div class="nav-divider"><span>MANAGE DATA</span></div>
+        <asp:LinkButton ID="AirportLink" runat="server" CssClass="nav-link" CommandArgument="Airport" OnCommand="TableLink_Command"><span class="nav-code">01</span><span>Airports</span></asp:LinkButton>
+        <asp:LinkButton ID="AircraftLink" runat="server" CssClass="nav-link" CommandArgument="Aircraft" OnCommand="TableLink_Command"><span class="nav-code">02</span><span>Aircraft</span></asp:LinkButton>
+        <asp:LinkButton ID="TerminalLink" runat="server" CssClass="nav-link" CommandArgument="Terminal" OnCommand="TableLink_Command"><span class="nav-code">03</span><span>Terminals</span></asp:LinkButton>
+        <asp:LinkButton ID="GateLink" runat="server" CssClass="nav-link" CommandArgument="Gate" OnCommand="TableLink_Command"><span class="nav-code">04</span><span>Boarding gates</span></asp:LinkButton>
+        <asp:LinkButton ID="FlightLink" runat="server" CssClass="nav-link" CommandArgument="Flight" OnCommand="TableLink_Command"><span class="nav-code">05</span><span>Flight records</span></asp:LinkButton>
+        <div class="sidebar-bottom">
+            <div class="connection-mark"><i></i> DATABASE CONNECTED</div>
+            <p>SKYPORT SYSTEMS<br /><span>LOCAL SQL SERVER INSTANCE</span></p>
+            <small>STUDENT EDITION <b>·</b> 01.0</small>
         </div>
-        <div class="sidebar-foot">SKYPORT <span>VERSION 1.0 · STUDENT EDITION</span></div>
     </aside>
-    <main class="main">
-        <header class="topbar">
-            <div><span class="eyebrow">AIRPORT OPERATIONS / COMMAND CENTRE</span><h1><asp:Literal ID="PageHeading" runat="server" Text="Good morning, operator." /></h1><p class="top-subtitle">A clearer view of your airport ecosystem.</p></div>
-            <div class="topbar-right"><span class="system-status"><i></i> All systems operational</span><span class="profile-chip">SP</span></div>
+
+    <main class="main-content">
+        <header class="page-topline">
+            <div class="breadcrumb">SKYPORT <span>/</span> AIRPORT OPERATIONS <span>/</span> <asp:Literal ID="PageHeading" runat="server" Text="Operations overview" /></div>
+            <div class="topline-right"><span class="clock-label">OPERATIONS DESK</span><span class="desk-avatar">SP</span></div>
         </header>
+
         <asp:Panel ID="DashboardPanel" runat="server">
-            <section class="welcome">
-                <div class="welcome-copy">
-                    <span class="hero-kicker"><span></span> YOUR AIRPORT, AT A GLANCE</span>
-                    <h2>Every journey<br />starts <em>here.</em></h2>
-                    <p>One place to organise airports, aircraft, terminals, gates and flight schedules.</p>
-                    <asp:LinkButton ID="HeroFlightsLink" runat="server" CssClass="hero-button" CommandArgument="Flight" OnCommand="TableLink_Command">Explore flight records <span>&#8594;</span></asp:LinkButton>
+            <section class="intro-row">
+                <div>
+                    <div class="section-index">OPERATIONS CENTRE <span>—</span> 01</div>
+                    <h1>Flight information<span class="title-period">.</span></h1>
+                    <p class="intro-description">A clear view of the records and resources behind every journey.</p>
                 </div>
-                <div class="welcome-photo">
-                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85" alt="Airplane wing above the clouds" />
-                    <div class="photo-caption"><span>SKYPORT / 001</span><strong>Built for smooth operations.</strong></div>
-                </div>
-                <div class="hero-orbit"></div>
+                <div class="airport-stamp"><span>SP</span><small>SKYPORT<br />AIR OPERATIONS</small></div>
             </section>
-            <div class="section-heading"><div><span class="eyebrow">LIVE OVERVIEW</span><h3>Operations snapshot</h3></div><span class="updated-note"><i></i> Connected to live database</span></div>
-            <div class="stats">
-                <div class="stat stat-airports"><div class="stat-top"><span class="stat-icon">&#8962;</span><span class="stat-label">AIRPORTS</span></div><strong><asp:Literal ID="AirportCount" runat="server" /></strong><small>Registered locations</small></div>
-                <div class="stat stat-aircraft"><div class="stat-top"><span class="stat-icon">&#9992;</span><span class="stat-label">AIRCRAFT</span></div><strong><asp:Literal ID="AircraftCount" runat="server" /></strong><small>Fleet records</small></div>
-                <div class="stat stat-terminals"><div class="stat-top"><span class="stat-icon">&#9636;</span><span class="stat-label">TERMINALS</span></div><strong><asp:Literal ID="TerminalCount" runat="server" /></strong><small>Active terminals</small></div>
-                <div class="stat stat-gates"><div class="stat-top"><span class="stat-icon">&#8677;</span><span class="stat-label">GATES</span></div><strong><asp:Literal ID="GateCount" runat="server" /></strong><small>Boarding locations</small></div>
-                <div class="stat stat-flights"><div class="stat-top"><span class="stat-icon">&#8644;</span><span class="stat-label">FLIGHTS</span></div><strong><asp:Literal ID="FlightCount" runat="server" /></strong><small>Flight records</small></div>
-            </div>
-            <div class="dashboard-grid">
-                <section class="panel schedule-panel"><div class="panel-head"><div><span class="eyebrow">UP-TO-DATE RECORDS</span><h3>Recent flight activity</h3><p class="muted">The latest flight entries saved in your database.</p></div><span class="live-tag"><i></i> LIVE DATA</span></div>
-                    <asp:GridView ID="RecentFlights" runat="server" CssClass="data-grid" GridLines="None" AutoGenerateColumns="true" EmptyDataText="No flight records found." />
-                </section>
-                <aside class="side-feature">
-                    <div class="feature-image"><img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=700&q=80" alt="Modern airport terminal interior" /><span>THE SKYPORT EXPERIENCE</span></div>
-                    <div class="feature-copy"><span class="eyebrow">QUICK ACCESS</span><h3>Manage your<br />airport resources.</h3><p>Jump straight into a section and keep your records organised.</p>
-                        <asp:LinkButton ID="QuickAirportLink" runat="server" CssClass="quick-link" CommandArgument="Airport" OnCommand="TableLink_Command">Manage airports <span>&#8599;</span></asp:LinkButton>
-                        <asp:LinkButton ID="QuickAircraftLink" runat="server" CssClass="quick-link" CommandArgument="Aircraft" OnCommand="TableLink_Command">Manage aircraft <span>&#8599;</span></asp:LinkButton>
-                        <asp:LinkButton ID="QuickTerminalLink" runat="server" CssClass="quick-link" CommandArgument="Terminal" OnCommand="TableLink_Command">Manage terminals <span>&#8599;</span></asp:LinkButton>
+
+            <section class="flight-board">
+                <div class="board-heading">
+                    <div><span class="board-kicker">FLIGHT REGISTER / DATABASE FEED</span><h2>Latest flight entries</h2></div>
+                    <div class="board-status"><i></i> CONNECTED TO SQL SERVER</div>
+                </div>
+                <div class="board-columns"><span>RECENTLY ADDED FLIGHTS</span><span>RECORDS FROM YOUR DATABASE</span></div>
+                <div class="board-table-wrap">
+                    <asp:GridView ID="RecentFlights" runat="server" CssClass="data-grid flight-grid" GridLines="None" AutoGenerateColumns="true" EmptyDataText="No flight records found." />
+                </div>
+                <div class="board-footer"><span>SKYPORT <b>FLIGHT REGISTER</b></span><asp:LinkButton ID="HeroFlightsLink" runat="server" CssClass="board-link" CommandArgument="Flight" OnCommand="TableLink_Command">VIEW ALL FLIGHT RECORDS <span>&#8594;</span></asp:LinkButton></div>
+            </section>
+
+            <section class="metrics-section">
+                <div class="metrics-heading"><div><span class="section-index">AIRPORT DIRECTORY <span>—</span> 02</span><h2>Network at a glance</h2></div><span class="metrics-note">LIVE DATABASE COUNTS</span></div>
+                <div class="metrics-grid">
+                    <div class="metric"><span class="metric-code">01 / LOCATION</span><strong><asp:Literal ID="AirportCount" runat="server" /></strong><span class="metric-name">Airports</span><span class="metric-mark">&#8962;</span></div>
+                    <div class="metric"><span class="metric-code">02 / FLEET</span><strong><asp:Literal ID="AircraftCount" runat="server" /></strong><span class="metric-name">Aircraft</span><span class="metric-mark">&#9992;</span></div>
+                    <div class="metric"><span class="metric-code">03 / BUILDING</span><strong><asp:Literal ID="TerminalCount" runat="server" /></strong><span class="metric-name">Terminals</span><span class="metric-mark">&#9636;</span></div>
+                    <div class="metric"><span class="metric-code">04 / ACCESS</span><strong><asp:Literal ID="GateCount" runat="server" /></strong><span class="metric-name">Boarding gates</span><span class="metric-mark">&#8677;</span></div>
+                    <div class="metric metric-accent"><span class="metric-code">05 / SCHEDULE</span><strong><asp:Literal ID="FlightCount" runat="server" /></strong><span class="metric-name">Flight records</span><span class="metric-mark">&#8644;</span></div>
+                </div>
+            </section>
+
+            <section class="bottom-strip">
+                <div class="bottom-photo"><img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=900&q=80" alt="Airport terminal" /><span>THE SKYPORT NETWORK</span></div>
+                <div class="bottom-copy"><span class="section-index">RESOURCE DIRECTORY <span>—</span> 03</span><h2>Everything in its place.</h2><p>Choose a section to view, add, edit or remove records stored in your airport database.</p>
+                    <div class="quick-links">
+                        <asp:LinkButton ID="QuickAirportLink" runat="server" CssClass="quick-link" CommandArgument="Airport" OnCommand="TableLink_Command">Airports <span>&#8599;</span></asp:LinkButton>
+                        <asp:LinkButton ID="QuickAircraftLink" runat="server" CssClass="quick-link" CommandArgument="Aircraft" OnCommand="TableLink_Command">Aircraft <span>&#8599;</span></asp:LinkButton>
+                        <asp:LinkButton ID="QuickTerminalLink" runat="server" CssClass="quick-link" CommandArgument="Terminal" OnCommand="TableLink_Command">Terminals <span>&#8599;</span></asp:LinkButton>
                     </div>
-                </aside>
-            </div>
+                </div>
+            </section>
         </asp:Panel>
+
         <asp:Panel ID="TablePanel" runat="server" Visible="false">
-            <div class="table-intro"><div><span class="eyebrow">RESOURCE MANAGEMENT / SKYPORT DATABASE</span><h2><asp:Literal ID="TableHeading" runat="server" /></h2><p>Keep your airport information accurate, organised and up to date.</p></div><div class="table-intro-mark">&#9638;</div></div>
-            <section class="panel records-panel">
-                <div class="panel-head"><div><span class="eyebrow">DATABASE TABLE</span><h3>All records</h3><p class="muted">View, add, edit and remove records in your SQL Server database.</p></div><span class="table-tag">SQL SERVER</span></div>
-                <asp:Label ID="Message" runat="server" CssClass="message" />
-                <div class="toolbar"><asp:Button ID="RefreshButton" runat="server" Text="&#8635; Refresh records" CssClass="btn btn-ghost" OnClick="RefreshButton_Click" /></div>
-                <asp:GridView ID="RecordsGrid" runat="server" CssClass="data-grid" GridLines="None" AutoGenerateColumns="false" DataKeyNames="__PK" OnRowEditing="RecordsGrid_RowEditing" OnRowCancelingEdit="RecordsGrid_RowCancelingEdit" OnRowUpdating="RecordsGrid_RowUpdating" OnRowDeleting="RecordsGrid_RowDeleting" />
+            <section class="resource-heading">
+                <div><span class="section-index">RESOURCE DIRECTORY <span>—</span> DATABASE ENTRY</span><h1><asp:Literal ID="TableHeading" runat="server" /><span class="title-period">.</span></h1><p class="intro-description">Manage the information stored in your SkyPort database.</p></div>
+                <div class="resource-number">SP / DATA<br /><strong>01—05</strong></div>
             </section>
-            <section class="panel form-panel"><div class="panel-head"><div><span class="eyebrow">ADD TO YOUR DATABASE</span><h3>Create a new record</h3><p class="muted">Fill in the details below. IDs are entered manually in this database.</p></div><span class="form-number">NEW ENTRY / 01</span></div>
+            <section class="records-section">
+                <div class="records-top">
+                    <div><span class="board-kicker">DATABASE TABLE</span><h2>All records</h2><p>View, add, edit and remove entries in this section.</p></div>
+                    <asp:Button ID="RefreshButton" runat="server" Text="&#8635; Refresh" CssClass="refresh-button" OnClick="RefreshButton_Click" />
+                </div>
+                <asp:Label ID="Message" runat="server" CssClass="message" />
+                <div class="records-table-wrap"><asp:GridView ID="RecordsGrid" runat="server" CssClass="data-grid records-grid" GridLines="None" AutoGenerateColumns="false" DataKeyNames="__PK" OnRowEditing="RecordsGrid_RowEditing" OnRowCancelingEdit="RecordsGrid_RowCancelingEdit" OnRowUpdating="RecordsGrid_RowUpdating" OnRowDeleting="RecordsGrid_RowDeleting" /></div>
+            </section>
+            <section class="create-section">
+                <div class="create-heading"><div><span class="section-index">DATABASE ENTRY <span>—</span> NEW</span><h2>Add a record</h2><p>Enter the details below to add a new row to this table.</p></div><span class="create-symbol">+</span></div>
                 <div class="entry-grid"><asp:PlaceHolder ID="InsertFields" runat="server" /></div>
-                <asp:Button ID="InsertButton" runat="server" Text="&#65291; Save record" CssClass="btn btn-primary" OnClick="InsertButton_Click" />
+                <asp:Button ID="InsertButton" runat="server" Text="Save record  &#8594;" CssClass="save-button" OnClick="InsertButton_Click" />
             </section>
         </asp:Panel>
+
         <asp:Panel ID="ErrorPanel" runat="server" Visible="false" CssClass="error-panel"><h3>Database connection issue</h3><asp:Literal ID="ErrorText" runat="server" /></asp:Panel>
-        <footer><span>© SKYPORT AIRPORT MANAGEMENT</span><span>DESIGNED FOR BETTER OPERATIONS <b>✦</b></span></footer>
+        <footer class="app-footer"><span>© SKYPORT AIRPORT OPERATIONS</span><span>INFORMATION SYSTEM <b> / </b> VERSION 1.0</span></footer>
     </main>
 </div>
 </form>
