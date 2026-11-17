@@ -4,7 +4,7 @@
 <head runat="server">
     <title>SkyPort | Airport Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/Site.css?v=2" rel="stylesheet" />
 </head>
 <body>
 <form id="form1" runat="server">
