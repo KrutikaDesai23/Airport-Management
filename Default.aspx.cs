@@ -51,6 +51,14 @@ namespace AirportManagement
         }
 
 
+        protected override void OnPreRender(EventArgs e)
+        {
+            // Apply the selected navigation state after postback events and ViewState restoration.
+            string activeTable = ViewState["CurrentTable"] as string;
+            SetActiveNavigation(activeTable);
+            base.OnPreRender(e);
+        }
+
         private void SetActiveNavigation(string table)
         {
             DashboardLink.CssClass = String.IsNullOrEmpty(table) ? "nav-link active" : "nav-link";
