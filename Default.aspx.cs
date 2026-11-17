@@ -20,17 +20,32 @@ namespace AirportManagement
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
+
+            // Re-create dynamic controls on every request, before ViewState and
+            // posted form values are restored. This preserves entered values.
             string postedTable = Request.Form["activeTable"];
-            if (!String.IsNullOrEmpty(postedTable) && PrimaryKeys.ContainsKey(postedTable)) BuildInsertFields(postedTable);
+            if (!String.IsNullOrEmpty(postedTable) && PrimaryKeys.ContainsKey(postedTable))
+                PrepareTableControls(postedTable);
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) LoadDashboard();
-            else
+            if (!IsPostBack)
             {
-                string postedTable = Request.Form["activeTable"];
-                if (!String.IsNullOrEmpty(postedTable) && PrimaryKeys.ContainsKey(postedTable)) LoadTable(postedTable);
+                LoadDashboard();
+                return;
+            }
+
+            string postedTable = Request.Form["activeTable"];
+            if (!String.IsNullOrEmpty(postedTable) && PrimaryKeys.ContainsKey(postedTable))
+            {
+                ViewState["CurrentTable"] = postedTable;
+                DashboardPanel.Visible = false;
+                TablePanel.Visible = true;
+                ErrorPanel.Visible = false;
+                PageHeading.Text = postedTable + " management";
+                TableHeading.Text = postedTable + " records";
+                BindTable(postedTable);
             }
         }
 
@@ -81,25 +96,57 @@ namespace AirportManagement
         {
             if (!PrimaryKeys.ContainsKey(table)) return;
             ViewState["CurrentTable"] = table;
-            DashboardPanel.Visible = false; TablePanel.Visible = true; ErrorPanel.Visible = false;
-            PageHeading.Text = table + " management"; TableHeading.Text = table + " records"; Message.Text = "";
+            DashboardPanel.Visible = false;
+            TablePanel.Visible = true;
+            ErrorPanel.Visible = false;
+            PageHeading.Text = table + " management";
+            TableHeading.Text = table + " records";
+            Message.Text = "";
+
             try
             {
-                DataTable schema = GetSchema(table);
-                RecordsGrid.Columns.Clear();
-                foreach (DataColumn col in schema.Columns)
-                {
-                    if (col.ColumnName == "__PK") continue;
-                    BoundField field = new BoundField { DataField = col.ColumnName, HeaderText = col.ColumnName.Replace("_", " ") };
-                    RecordsGrid.Columns.Add(field);
-                }
-                RecordsGrid.DataKeyNames = new string[] { "__PK" };
-                CommandField actions = new CommandField { ShowEditButton = true, ShowDeleteButton = true, EditText = "Edit", DeleteText = "Delete", UpdateText = "Save", CancelText = "Cancel" };
-                RecordsGrid.Columns.Add(actions);
-                RecordsGrid.DataSource = schema; RecordsGrid.DataBind();
-                BuildInsertFields(table);
+                PrepareTableControls(table);
+                BindTable(table);
             }
             catch (Exception ex) { ShowError(ex); }
+        }
+
+        // Create dynamic GridView columns and insert controls during Init.
+        // Do not recreate these controls in Page_Load: doing so discards posted values.
+        private void PrepareTableControls(string table)
+        {
+            DataTable schema = GetSchema(table);
+            RecordsGrid.Columns.Clear();
+
+            foreach (DataColumn col in schema.Columns)
+            {
+                if (col.ColumnName == "__PK") continue;
+                BoundField field = new BoundField
+                {
+                    DataField = col.ColumnName,
+                    HeaderText = col.ColumnName.Replace("_", " ")
+                };
+                RecordsGrid.Columns.Add(field);
+            }
+
+            RecordsGrid.DataKeyNames = new string[] { "__PK" };
+            CommandField actions = new CommandField
+            {
+                ShowEditButton = true,
+                ShowDeleteButton = true,
+                EditText = "Edit",
+                DeleteText = "Delete",
+                UpdateText = "Save",
+                CancelText = "Cancel"
+            };
+            RecordsGrid.Columns.Add(actions);
+            BuildInsertFields(table);
+        }
+
+        private void BindTable(string table)
+        {
+            RecordsGrid.DataSource = GetSchema(table);
+            RecordsGrid.DataBind();
         }
 
         private DataTable GetSchema(string table)
