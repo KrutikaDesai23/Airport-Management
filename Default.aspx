@@ -34,7 +34,7 @@
     </aside>
     <main class="main">
         <header class="topbar">
-            <div><span class="eyebrow">MONDAY — AIRPORT OPERATIONS</span><h1><asp:Literal ID="PageHeading" runat="server" Text="Good morning, operator." /></h1><p class="top-subtitle">A clearer view of your airport ecosystem.</p></div>
+            <div><span class="eyebrow">AIRPORT OPERATIONS / COMMAND CENTRE</span><h1><asp:Literal ID="PageHeading" runat="server" Text="Good morning, operator." /></h1><p class="top-subtitle">A clearer view of your airport ecosystem.</p></div>
             <div class="topbar-right"><span class="system-status"><i></i> All systems operational</span><span class="profile-chip">SP</span></div>
         </header>
         <asp:Panel ID="DashboardPanel" runat="server">
