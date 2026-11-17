@@ -1,4 +1,4 @@
-<%@ Page Language="C#" CodePage="65001" ResponseEncoding="utf-8" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="AirportManagement.DefaultPage" %>
+<%@ Page Language="C#" ResponseEncoding="utf-8" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="AirportManagement.DefaultPage" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
