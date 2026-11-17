@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
+    <meta charset="utf-8" />
     <title>SkyPort | Airport Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="Content/Site.css?v=2" rel="stylesheet" />
